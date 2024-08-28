@@ -5,6 +5,10 @@ import com.example.demo.common.pojo.ResultDTO;
 import com.example.demo.dal.dataobject.User;
 import com.example.demo.security.util.JwtUtil;
 import com.example.demo.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,7 +23,8 @@ import java.util.Map;
 
 import static com.example.demo.common.enums.ResponseCodeEnum.*;
 
-
+@Tag(name = "用户Controller", description = "账号管理")
+@ApiResponses(@ApiResponse(responseCode = "200", description = "处理成功"))
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -33,6 +38,7 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @Operation(summary = "用户注册接口")
     @PostMapping(value = "/register")
     public ResultDTO<Boolean> register(@RequestBody User user) {
         String username = user.getUsername();
@@ -44,6 +50,7 @@ public class UserController {
         return ResultDTO.success(userService.register(user));
     }
 
+    @Operation(summary = "用户登录接口")
     @PostMapping(value = "/login")
     public ResultDTO<Map<String, String>> login(@RequestBody User user, HttpServletResponse response) {
         User exist = userService.queryByUsername(user.getUsername());
@@ -71,6 +78,7 @@ public class UserController {
      * @param response
      * @return
      */
+    @Operation(summary = "用户登出接口")
     @GetMapping("/logout")
     public ResultDTO<Boolean> logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

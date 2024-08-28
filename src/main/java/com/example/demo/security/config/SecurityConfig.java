@@ -27,7 +27,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private static final String[] URL_WHITELIST = {"/user/login", "/user/register"};
+    private static final String[] URL_WHITELIST = {
+            "/user/login",
+            "/user/register",
+            "/swagger-ui/*",
+            "/swagger-ui.html",
+            "/v3/api-docs/**",
+            "/swagger-resources/**"};
 
     @Resource
     private AccountUserDetailsService accountUserDetailsService;

@@ -18,3 +18,11 @@ mybatis-plus:
 logging:
   level:
     root: info
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+  packages-to-scan: com.example.demo.controller
